@@ -61,21 +61,6 @@ def load_Img(path1):
     x_img = np.array(x_img)
     return x_img
 
-def gen_data(batch_size=64):
-    while True:
-        l_plateStr, l_plateImg = G.genBatch(batch_size, 2, range(31, 65), "plateImg", (272, 72))
-        X = np.array(l_plateImg, dtype=np.uint8)/255
-        X = X.reshape(-1, 72, 272, 1).astype('float32')
-        ytmp = np.array(list(map(lambda x: [index[a] for a in list(x)], l_plateStr)), dtype=np.uint8)
-        y = np.zeros([ytmp.shape[1], batch_size, len(chars)])
-        for batch in range(batch_size):
-            for idx, row_i in enumerate(ytmp[batch]):
-                y[idx, batch, row_i] = 1
-
-        yield X, [yy for yy in y]
-
-
-
 
 # x_test =load_Img("testImg")
 # print(x_test.shape)
